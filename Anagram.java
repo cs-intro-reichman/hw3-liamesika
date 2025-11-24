@@ -1,29 +1,62 @@
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
-		// Tests the isAnagram function.
-		System.out.println(isAnagram("silent","listen"));  // true
-		System.out.println(isAnagram("William Shakespeare","I am a weakish speller")); // true
-		System.out.println(isAnagram("Madam Curie","Radium came")); // true
-		System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
+		testIsAnagram();
+		testPreProcess();
+		testRandomAnagram();
+	}
 
-		// Tests the preProcess function.
-		System.out.println(preProcess("What? No way!!!"));
-		
-		// Tests the randomAnagram function.
-		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
-		
-		// Performs a stress test of randomAnagram 
-		String str = "1234567";
-		Boolean pass = true;
-		//// 10 can be changed to much larger values, like 1000
-		for (int i = 0; i < 10; i++) {
-			String randomAnagram = randomAnagram(str);
-			System.out.println(randomAnagram);
-			pass = pass && isAnagram(str, randomAnagram);
-			if (!pass) break;
-		}
-		System.out.println(pass ? "test passed" : "test Failed");
+	private static void testIsAnagram() {
+		System.out.println("Testing isAnagram method:");
+
+		boolean test1 = isAnagram("silent", "listen") == true;
+		System.out.println("Test 1 (basic anagram): " + (test1 ? "PASS" : "FAIL"));
+
+		boolean test2 = isAnagram("hello", "worlds") == false;
+		System.out.println("Test 2 (different lengths): " + (test2 ? "PASS" : "FAIL"));
+
+		boolean test4 = isAnagram("", "") == true;
+		System.out.println("Test 4 (empty strings): " + (test4 ? "PASS" : "FAIL"));
+
+		boolean test5 = isAnagram("William Shakespeare", "I am a weakish speller") == true;
+		System.out.println("Test 5 (complex anagram): " + (test5 ? "PASS" : "FAIL"));
+
+		boolean test6 = isAnagram("Listen", "Silent") == true;
+		System.out.println("Test 6 (case sensitivity): " + (test6 ? "PASS" : "FAIL"));
+	}
+
+	private static void testPreProcess() {
+		System.out.println("\nTesting preProcess method:");
+
+		boolean test1 = preProcess("hello").equals("hello");
+		System.out.println("Test 1 (simple lowercase): " + (test1 ? "PASS" : "FAIL"));
+
+		boolean test2 = preProcess("hello world").equals("helloworld");
+		System.out.println("Test 2 (remove spaces): " + (test2 ? "PASS" : "FAIL"));
+
+		boolean test3 = preProcess("HeLLo").equals("hello");
+		System.out.println("Test 3 (case conversion): " + (test3 ? "PASS" : "FAIL"));
+
+		boolean test4 = preProcess("").equals("");
+		System.out.println("Test 4 (empty string): " + (test4 ? "PASS" : "FAIL"));
+	}
+
+	private static void testRandomAnagram() {
+		System.out.println("\nTesting randomAnagram method:");
+
+		String original = "hello";
+		String random = randomAnagram(original);
+		boolean test1 = isAnagram(original, random);
+		System.out.println("Test 1 (is anagram): " + (test1 ? "PASS" : "FAIL"));
+
+		boolean test2 = random.length() == original.length();
+		System.out.println("Test 2 (same length): " + (test2 ? "PASS" : "FAIL"));
+
+		String random2 = randomAnagram(original);
+		String random3 = randomAnagram(original);
+		String random4 = randomAnagram(original);
+		boolean test3 = !(random.equals(random2) && random2.equals(random3) && random3.equals(random4));
+		System.out.println("Test 3 (randomness): " + (test3 ? "PASS" : "FAIL"));
 	}  
 
 	// Returns true if the two given strings are anagrams, false otherwise.

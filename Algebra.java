@@ -60,7 +60,6 @@ public class Algebra {
 
 		int absX1 = x1 < 0 ? minus(0, x1) : x1;
 		int absX2 = x2 < 0 ? minus(0, x2) : x2;
-
 		for (int i = 0; i < absX2; i++) {
 			times_x = plus(times_x, absX1);
 		}

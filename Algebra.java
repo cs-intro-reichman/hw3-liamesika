@@ -1,7 +1,3 @@
-// Implements algebraic operations and the square root function without using 
-// the Java operations a + b, a - b, a * b, a / b, a % b, and without calling 
-// Math.sqrt. All the functions in this class operate on int values and
-// return int values.
 
 public class Algebra {
 	public static void main(String args[]) {
@@ -25,43 +21,116 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int sum_x = x1;
+		if (x2 >= 0) {
+			for (int i = 0; i < x2; i++) {
+				sum_x++;
+			}
+		} else {
+			for (int i = 0; i > x2; i--) {
+				sum_x--;
+			}
+		}
+		return sum_x;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int minus_x = x1;
+		if (x2 >= 0) {
+			for (int i = 0; i < x2; i++) {
+				minus_x--;
+			}
+		} else {
+			for (int i = 0; i > x2; i--) {
+				minus_x++;
+			}
+		}
+		return minus_x;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int times_x = 0;
+		boolean negative = false;
+
+		if ((x1 < 0 && x2 > 0) || (x1 > 0 && x2 < 0)) {
+			negative = true;
+		}
+
+		int absX1 = x1 < 0 ? minus(0, x1) : x1;
+		int absX2 = x2 < 0 ? minus(0, x2) : x2;
+		for (int i = 0; i < absX2; i++) {
+			times_x = plus(times_x, absX1);
+		}
+
+		return negative ? minus(0, times_x) : times_x;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		// Replace the following statement with your code
-		return 0;
+		if (n == 0) {
+			return 1;
+		}
+		int pow_x = x;
+		for (int i = 0; i < n - 1; i++) {
+			pow_x = times(pow_x, x);
+		}
+		return pow_x;
 	}
 
-	// Returns the integer part of x1 / x2 
+	// Returns the integer part of x1 / x2
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int div_x = 0;
+		boolean negative = false;
+
+		if ((x1 < 0 && x2 > 0) || (x1 > 0 && x2 < 0)) {
+			negative = true;
+		}
+
+		int absX1 = x1 < 0 ? minus(0, x1) : x1;
+		int absX2 = x2 < 0 ? minus(0, x2) : x2;
+
+		while (absX1 >= absX2) {
+			div_x = plus(div_x, 1);
+			absX1 = minus(absX1, absX2);
+		}
+
+		return negative ? minus(0, div_x) : div_x;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int mod_x = 0;
+		if (x1 < x2){
+			return x1;
+		}
+		else {
+			int div_num = div(x1,x2);
+			int times_num = times(x2, div_num);
+			mod_x = (minus(x1, times_num));
+		}
+		return mod_x;
 	}	
 
-	// Returns the integer part of sqrt(x) 
+	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
+		if (x == 0) {
+			return 0;
+		}
+		if (x == 1) {
+			return 1;
+		}
+		int count = 0;
+		for (int i = 0; i <= x; i++) {
+			if (times(i, i) == x) {
+				return i;
+			}
+			if (times(i, i) > x) {
+				return minus(i, 1);
+			}
+			count = i;
+		}
+		return count;
 	}	  	  
 }

@@ -17,5 +17,4 @@ jobs:
       with:
         distribution: 'oracle'
         java-version: '21'
-    - uses: actions/checkout@v2
     - uses: education/autograding@v1

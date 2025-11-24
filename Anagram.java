@@ -1,4 +1,5 @@
 /** Functions for checking if a given string is an anagram. */
+
 public class Anagram {
 	public static void main(String args[]) {
 		testIsAnagram();
